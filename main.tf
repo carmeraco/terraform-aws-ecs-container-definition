@@ -23,6 +23,8 @@ locals {
       options   = "${var.log_options}"
     }
 
+    dockerLabels = "labels_sentinel_value"
+
     environment = "environment_sentinel_value"
     secrets     = "secrets_sentinel_value"
   }

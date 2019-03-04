@@ -8,7 +8,7 @@ locals {
   encoded_environment_variables = "${jsonencode(local.environment)}"
   encoded_secrets               = "${length(local.secrets) > 0 ? jsonencode(local.secrets) : "null"}"
   encoded_container_definition  = "${replace(replace(replace(jsonencode(local.container_definition), "/(\\[\\]|\\[\"\"\\]|\"\"|{})/", "null"), "/\"(true|false)\"/", "$1"), "/\"([0-9]+\\.?[0-9]*)\"/", "$1")}"
-  json_map                      = "${replace(replace(local.encoded_container_definition, "/\"environment_sentinel_value\"/", local.encoded_environment_variables), "/\"secrets_sentinel_value\"/", local.encoded_secrets)}"
+  json_map                      = "${replace(replace(replace(local.encoded_container_definition, "/\"environment_sentinel_value\"/", local.encoded_environment_variables), "/\"secrets_sentinel_value\"/", local.encoded_secrets),"/\"labels_sentinel_value\"/",var.labels)}"
 }
 
 output "json" {

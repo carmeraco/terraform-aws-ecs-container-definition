@@ -119,3 +119,9 @@ variable "dns_servers" {
   description = "Container DNS servers. This is a list of strings specifying the IP addresses of the DNS servers."
   default     = []
 }
+
+variable "labels" {
+  type        = "string"
+  description = "JSON formatted Docker Labels to apply to containers for this task definition"
+  default     = "{}"
+}
