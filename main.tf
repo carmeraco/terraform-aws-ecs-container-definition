@@ -1,4 +1,13 @@
 # Environment variables are composed into the container definition at output generation time. See outputs.tf for more information.
+data "null_data_source" "environment" {
+  count = "${length(keys(var.environment))}"
+
+  inputs = {
+    name = "${element(keys(var.environment), count.index)}"
+    value = "${lookup(var.environment, element(keys(var.environment), count.index))}"
+  }
+}
+
 locals {
   container_definition = {
     name                   = "${var.container_name}"
@@ -29,6 +38,7 @@ locals {
     secrets     = "secrets_sentinel_value"
   }
 
-  environment = "${var.environment}"
+  labels      = "${var.labels}"
+  environment = "${data.null_data_source.environment.*.outputs}"
   secrets     = "${var.secrets}"
 }

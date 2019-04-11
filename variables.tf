@@ -65,9 +65,9 @@ variable "working_directory" {
 }
 
 variable "environment" {
-  type        = "list"
-  description = "The environment variables to pass to the container. This is a list of maps"
-  default     = []
+  type        = "map"
+  description = "The environment variables to pass to the container. This will be transformed into list of maps in appropriate format."
+  default     = {}
 }
 
 variable "secrets" {
@@ -121,7 +121,7 @@ variable "dns_servers" {
 }
 
 variable "labels" {
-  type        = "string"
-  description = "JSON formatted Docker Labels to apply to containers for this task definition"
-  default     = "{}"
+  type        = "map"
+  description = "Map of labels to apply to containers for this task definition"
+  default     = {}
 }

@@ -4,11 +4,13 @@
 #  - Convert `"true"` and `"false"` to `true` and `false`
 #  - Convert quoted numbers (e.g. `"123"`) to `123`.
 # Environment variables are kept as strings.
+
 locals {
+  encoded_labels                = "${jsonencode(local.labels)}"
   encoded_environment_variables = "${jsonencode(local.environment)}"
   encoded_secrets               = "${length(local.secrets) > 0 ? jsonencode(local.secrets) : "null"}"
   encoded_container_definition  = "${replace(replace(replace(jsonencode(local.container_definition), "/(\\[\\]|\\[\"\"\\]|\"\"|{})/", "null"), "/\"(true|false)\"/", "$1"), "/\"([0-9]+\\.?[0-9]*)\"/", "$1")}"
-  json_map                      = "${replace(replace(replace(local.encoded_container_definition, "/\"environment_sentinel_value\"/", local.encoded_environment_variables), "/\"secrets_sentinel_value\"/", local.encoded_secrets),"/\"labels_sentinel_value\"/",var.labels)}"
+  json_map                      = "${replace(replace(replace(local.encoded_container_definition, "/\"environment_sentinel_value\"/", local.encoded_environment_variables), "/\"secrets_sentinel_value\"/", local.encoded_secrets),"/\"labels_sentinel_value\"/",local.encoded_labels)}"
 }
 
 output "json" {
