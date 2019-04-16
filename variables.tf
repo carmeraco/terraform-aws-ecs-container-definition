@@ -125,3 +125,9 @@ variable "labels" {
   description = "Map of labels to apply to containers for this task definition"
   default     = {}
 }
+
+variable "env_var_count" {
+  type        = "string"
+  description = "Count of environment variables being passed"
+  default     = "0"
+}

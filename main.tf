@@ -1,9 +1,9 @@
 # Environment variables are composed into the container definition at output generation time. See outputs.tf for more information.
 data "null_data_source" "environment" {
-  count = "${length(keys(var.environment))}"
+  count = "${var.env_var_count}"
 
   inputs = {
-    name = "${element(keys(var.environment), count.index)}"
+    name  = "${element(keys(var.environment), count.index)}"
     value = "${lookup(var.environment, element(keys(var.environment), count.index))}"
   }
 }
