@@ -159,3 +159,9 @@ variable "stop_timeout" {
   description = "Timeout in seconds between sending SIGTERM and SIGKILL to container"
   default     = 30
 }
+
+variable "system_controls" {
+  type        = "list"
+  description = "A list of namespaced kernel parameters to set in the container, mapping to the --sysctl option to docker run. This is a list of maps: { \"namespace\": \"\", \"value\": \"\"}"
+  default     = []
+}
